@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_使用 jsx 創建虛擬 DOM</title>
+</head>
+<style>
+  .title {
+    background-color: orange;
+    width: 200px;
+  }
+</style>
+<body>
+  <!-- 準備好一個容器 -->
+  <div id="test"></div>
+  <!-- 引入 React 核心 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入 React DOM 操作 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入 Babel 轉譯器 -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    const myId = 'NaThAn'
+    const myData = 'HeLlO ReAcT'
+
+    // 1. 創建虛擬 DOM
+    const VDOM = (
+      <div>
+        <h2 className='title' id={myId.toLowerCase()}>
+          <span style={{color: 'white', fontSize: '30px'}}>{myData.toLocaleLowerCase()}</span>
+          <input type="text" />
+        </h2>
+        <h2 className='title' id={myId.toUpperCase() + '2'}>
+          <span style={{color: 'white', fontSize: '30px'}}>{myData.toLocaleLowerCase()}</span>
+          <input type="text"/>
+        </h2>
+        <good>123</good>
+      </div>
+    )
+    // 2. 渲染虛擬 DOM 到頁面
+    ReactDOM.render(VDOM, document.getElementById('test'))
+
+    /*
+      jsx 語法規則:
+      1. 定義虛擬 DOM 時，不要寫引號
+      2. 標籤中混入 js 表達是，使用 {} 包裹
+      3. 樣式類明指定不要用 class，要用 className
+      4. 內聯樣式，要用對象的形式 style={{key: value}} 的形式
+      5. 虛擬 DOM 只能有一個根元素
+      6. 標籤必須閉合
+      7. 標籤首字母
+        (1) 若是小寫字母開頭，則對應一個 html 元素，若標籤未定義，則報錯
+        (2) 若是大寫字母開頭，則對應一個組件，組件要事先定義好，否則報錯
+
+    */
+
+  </script>
+
+</body>
+
+</html>

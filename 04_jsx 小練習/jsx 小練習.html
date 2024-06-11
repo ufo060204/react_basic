@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_使用 jsx 創建虛擬 DOM</title>
+</head>
+<style>
+  .title {
+    background-color: orange;
+    width: 200px;
+  }
+</style>
+
+<body>
+  <!-- 準備好一個容器 -->
+  <div id="test"></div>
+  <!-- 引入 React 核心 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入 React DOM 操作 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入 Babel 轉譯器 -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    /*
+    一定注意區分：js 語法和 js 表達式
+      1. 表達式：一定會有返回值，可以放在任何需要值的地方
+        下面這些都是表達式：
+          (1). a
+          (2). a + b
+          (3). demo(1)
+          (4). arr.map()
+          (5). function test() {}
+      2. 陳述式：沒有返回值，不能放在需要值的地方
+        下面這些都是陳述式：
+          (1). if (a > 1) {}
+          (2). for (let i = 0; i < 10; i++) {}
+          (3). switch() {case:xxx}
+    */
+    // 模擬一些數據
+    const data = ['React', 'Vue', 'Angular']
+    // 1. 創建虛擬 DOM
+    const VDOM = (
+      <div>
+        <h1>前端 js 框架列表</h1>
+        <ul>
+          {
+            data.map((item, index) => {
+              return <li key={index}>{item}</li>
+            })
+
+          }
+        </ul>
+      </div>
+    )
+    // 2. 渲染虛擬 DOM 到頁面
+    ReactDOM.render(VDOM, document.getElementById('test'))
+
+  </script>
+
+</body>
+
+</html>
