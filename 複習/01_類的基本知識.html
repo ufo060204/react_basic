@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_類的基本知識</title>
+</head>
+<body>
+  <script type="text/javascript">
+    /*
+      總結：
+        1. 類中的構造器不是必須寫的，要對實例進行初始化操作，如添加指定屬性十才寫
+        2. 如果 A 類繼承了 B 類，且 A 類中寫了構造器，那麼在 A 的構造器中的 super() 是必須要調用的
+        3. 類中所定義的方法都是定義在類的原型對象上的，供實例去使用
+    */
+
+    // 創建一個 Person 類
+    class Person {
+      // 類的構造函數
+      constructor(name, age) {
+        // 構造器中的 this 是誰？ 類的實例對象
+        this.name = name
+        this.age = age
+      }
+      // 一般方法
+      speak() {
+        // speak 方法放在了哪裡？ Person.prototype (類的原型對象上)，供實例使用
+        // 通過 Person 實例調用 speak 時，speak 中的 this 就是 Person 的實例對象
+        console.log(`我是 ${this.name}，我今年 ${this.age} 歲`)
+      }
+    }
+
+    // 創建一個 Student 類，繼承自 Person
+    class Student extends Person {
+      constructor(name, age, grade){
+        // super 必須在 this 之前調用
+        super(name, age) // 調用父類的構造函數
+        this.grade = grade
+        this.school = '清華大學'
+      }
+      // 重寫從父類的 speak 方法
+      speak() {
+        console.log(`我是 ${this.name}，我今年 ${this.age} 歲，我在讀 ${this.grade}`)
+      }
+      // study 方法放在了哪裡？ Person.prototype (類的原型對象上)，供實例使用
+      // 通過 Student 實例調用 study 時，study 中的 this 就是 Student 的實例對象
+      study() {
+        console.log('我很努力的學習')
+      }
+    }
+
+    // 創建一個 Person 的實例
+    const p1 = new Person('tom', 18)
+    const p2 = new Person('jerry', 20)
+    console.log(p1)
+    console.log(p2)
+    p1.speak()
+    p2.speak()
+    p1.speak.call({a: 1, b: 2}) // 通過 call 調用方法，改變 this 指向
+
+    // 創建一個 Student 的實例
+    const s1 = new Student('阿明', 15, '高三')
+    console.log(s1)
+    s1.speak()
+    s1.study()
+
+  </script>
+</body>
+</html>
