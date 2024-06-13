@@ -22,36 +22,22 @@
   <script type="text/babel">
     // 1. 創建組件
     class Weather extends React.Component {
-      constructor(props) {
-        super(props)
-        // // 初始化狀態
-        this.state = {
-          isHot: true
-        }
+      // 初始化狀態
+      state = { isHot: true, wind: '微風' }
 
-      }
       render() {
+        // console.log(this)
+        const { isHot, wind } = this.state 
+        return <h1 onClick={ this.changeWeather }>今天天氣很{ isHot ? '炎熱' : '涼爽'}，{ wind }</h1>
+      }
+      // 自定義方法，要用賦值語句的形式 + 箭頭函數的形式
+      changeWeather = () => {
         console.log(this)
-        // return <h1>今天天氣很{this.state.isHot ? '炎熱' : '涼爽'}</h1>
-        // 讀取狀態
-        const { isHot } = this.state // 解構賦值
-        return <h1 onClick={ demo }>今天天氣很{ isHot ? '炎熱' : '涼爽'}</h1>
+        const isHot = this.state.isHot
+        this.setState({ isHot : !isHot})
       }
     }
-    // 2. 渲染組件到頁面
     ReactDOM.render(<Weather />, document.getElementById('test'))
-
-    // const title = document.getElementById('title')
-    // title.addEventListener('click', () => {
-    //   console.log('標題被點擊了')
-    // })
-
-    // title.onclick = () => {
-    //   console.log('標題被點擊了')
-    // }
-    function demo() {
-      console.log('標題被點擊了')
-    }
   </script>
 
 </body>
