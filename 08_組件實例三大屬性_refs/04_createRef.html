@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04_createRef</title>
+</head>
+<style>
+</style>
+
+<body>
+  <!-- 準備好一個容器 -->
+  <div id="test"></div>
+  <!-- 引入 React 核心 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入 React DOM 操作 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入 Babel 轉譯器 -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <!-- 引入 prop-types 用於對組件標籤類型進行限制 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建組件
+    class Demo extends React.Component {
+      /*
+        React.createRef 調用後可以返回一個容器，這個容器可以存儲被 ref 標示的節點, 該容器是專人專用的
+      */
+      myRef = React.createRef()
+      myRef2 = React.createRef()
+      // 展示左側輸入框的數據
+      showData = () => {
+        alert(this.myRef.current.value)
+        // console.log(this.myRef)
+      }
+      // 展示右側輸入框的數據
+      showData2 = () => {
+        alert(this.myRef2.current.value)
+      }
+      // 2. 設置屬性
+      render() {
+        return (
+          <div>
+            <input ref={this.myRef} type="text" placeholder="點擊按鈕提示數據" />&nbsp;
+            <button onClick={this.showData}>點我提示左側數據</button>&nbsp;
+            <input onBlur={this.showData2} ref={this.myRef2} type="text" placeholder="失去焦點提示數據" />
+          </div>
+        )
+      }
+    }
+
+    // 3. 渲染組件
+    ReactDOM.render(<Demo a='1' b='2'/>, document.getElementById('test'))
+  </script>
+
+</body>
+
+</html>

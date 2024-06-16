@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02_回調函數形式的 ref</title>
+</head>
+<style>
+</style>
+
+<body>
+  <!-- 準備好一個容器 -->
+  <div id="test"></div>
+  <!-- 引入 React 核心 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入 React DOM 操作 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入 Babel 轉譯器 -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <!-- 引入 prop-types 用於對組件標籤類型進行限制 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建組件
+    class Demo extends React.Component {
+      // 展示左側輸入框的數據
+      showData = () => {
+        // 獲取 input 的值
+        const { input1 } = this
+        alert(input1.value)
+      }
+      // 展示右側輸入框的數據
+      showData2 = () => {
+        // 獲取 input 的值
+        const { input2 } = this
+        alert(input2.value)
+      }
+      // 2. 設置屬性
+      render() {
+        return (
+          <div>
+            <input ref={c => this.input1 = c} type="text" placeholder="點擊按鈕提示數據" />&nbsp;
+            <button onClick={this.showData}>點我提示左側數據</button>&nbsp;
+            <input ref={c => this.input2 = c}  onBlur={this.showData2} type="text" placeholder="失去焦點提示數據" />
+          </div>
+        )
+      }
+    }
+
+    // 3. 渲染組件
+    ReactDOM.render(<Demo a='1' b='2'/>, document.getElementById('test'))
+  </script>
+
+</body>
+
+</html>

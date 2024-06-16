@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03_props 的簡寫方式</title>
+</head>
+<style>
+</style>
+
+<body>
+  <!-- 準備好一個容器 -->
+  <div id="test1"></div>
+  <div id="test2"></div>
+  <div id="test3"></div>
+  <!-- 引入 React 核心 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入 React DOM 操作 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入 Babel 轉譯器 -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <!-- 引入 prop-types 用於對組件標籤類型進行限制 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+
+  <script type="text/babel">
+    // 1. 創建組件
+    class Person extends React.Component {
+      // 夠在器是否接收 props, 是否傳遞給 super, 取決於: 是否希望在構造器中通過 this 訪問 props
+      constructor(props) {
+        super(props)
+        console.log('constructor', this.props)
+      }
+
+      // 對標籤屬性進行類型、必要性的限制
+      static propTypes = {
+        name: PropTypes.string.isRequired, // 限制 name 必傳且是字串
+        sex: PropTypes.string, // 限制 sex 且是字串
+        age: PropTypes.number, // 限制 age 且是數字
+      }
+
+      // 默認標籤屬性值
+      static defaultProps = {
+        sex: '雙性', // 默認性別
+        age: 18 // 默認年齡
+      }
+      
+      // 2. 設置屬性
+      render() {
+        // console.log(this)
+        const { name, age, sex } = this.props
+        // this.props.name = '改名' // 此行代碼會報錯，因為 props 是只讀的
+        // this.props.age = age + 1 // 此行代碼會報錯，因為 props 是只讀的
+        return (
+          console.log(this),
+          <ul>
+            <li>姓名: { name }</li>
+            <li>性別: { sex }</li>
+            <li>年齡: { age + 1 }</li> 
+          </ul>
+        )
+      }
+    }
+
+    // 3. 渲染組件
+    ReactDOM.render(<Person name='Jenny'/>, document.getElementById('test1'))
+  </script>
+
+</body>
+
+</html>
