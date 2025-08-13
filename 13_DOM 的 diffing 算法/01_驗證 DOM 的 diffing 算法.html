@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_驗證 DOM 的 diffing 算法</title>
+</head>
+<style></style>
+<body>
+  <!-- 準備好一個容器 -->
+  <div id="test"></div>
+  <!-- 引入 React 核心 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入 React DOM 操作 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入 Babel 轉譯器 -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <!-- 引入 prop-types 用於對組件標籤類型進行限制 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+  <script type="text/babel">
+    class Time extends React.Component {
+      state = {data: new Date()}
+
+      componentDidMount() {
+        setInterval(() => {
+          this.setState({
+            data: new Date()
+          })
+        }, 1000)
+      }
+      render() {
+        return (
+          <div>
+            <h1>hello</h1>
+            <input type="text"/>
+            <span>
+              現在是：{this.state.data.toTimeString()}
+              <input type="text"/>
+            </span>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Time />, document.getElementById('test'))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03_React 生命週期(新)</title>
+</head>
+<style>
+</style>
+<body>
+  <!-- 準備好一個容器 -->
+  <div id="test"></div>
+  <!-- 引入 React 核心 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入 React DOM 操作 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入 Babel 轉譯器 -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <!-- 引入 prop-types 用於對組件標籤類型進行限制 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+  <script type="text/babel">
+    /*
+      1. 初始化階段：由 ReactDOM.render() 觸發---初次渲染
+        1.1 constructor()
+        1.2 getDerivedStateFromProps()
+        1.3 render()
+        1.4 componentDidMount() ===> 常用
+          一般在這個鉤子做一些初始化的事, 例如：發送 ajax 請求、啟動定時器、訂閱消息
+      2. 更新階段：由組件內部 this.setState() 或父組件 render 觸發
+        2.1 getDerivedStateFromProps()
+        2.2 shouldComponentUpdate()
+        2.3 render() ===> 必須使用
+        2.4 getSnapshotBeforeUpdate()
+        2.5 componentDidUpdate()
+      3. 卸載階段：由 ReactDOM.unmountComponentAtNode() 觸發
+        3.1 componentWillUnmount() ===> 常用
+          一般在這個鉤子做一些收尾的事, 例如：清除定時器、取消訂閱消息
+      */
+
+    // 創建組建
+    class Count extends React.Component {
+      // 構造器
+      constructor(props) {
+        console.log('Count---constructor')
+        super(props)
+        // 初始化狀態
+        this.state = {count: 0}
+      }
+
+      // 加 1 按鈕的回調
+      add = () => {
+        // 獲取原本的 count 狀態
+        const {count} = this.state
+        // 更新狀態
+        this.setState({count: count + 1})
+      }
+
+      // 卸載組件按鈕的回調
+      death = () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+      }
+
+      // 強制更新按鈕的回調
+      force = () => {
+        this.forceUpdate()
+      }
+      
+      // 若 state 的值在任何時候都取決於 props, 那麼可以使用 getDerivedStateFromProps
+      static getDerivedStateFromProps(props, state) {
+        console.log('Count---getDerivedStateFromProps', props, state)
+        return null
+      }
+
+      // 在更新之前獲取快照
+      getSnapshotBeforeUpdate() {
+        console.log('Count---getSnapshotBeforeUpdate')
+        return '我是字串，我是 getSnapshotBeforeUpdate 的返回值'
+      }
+
+      // 組件掛載完畢的鉤子
+      componentDidMount() {
+        console.log('Count---componentDidMount')
+      }
+
+      // 組件將要卸載的鉤子
+      componentWillUnmount() {
+        console.log('Count---componentWillUnmount')
+      }
+
+      // 控制組件更新的'閥門'
+      shouldComponentUpdate() {
+        console.log('Count---shouldComponentUpdate')
+        return true
+      }
+
+      // 組件更新完畢的鉤子
+      componentDidUpdate(preProps, preState, snapshotValue) {
+        console.log('Count---componentDidUpdate', preProps, preState, snapshotValue)
+      }
+      
+      render() {
+        console.log('Count---render')
+        const {count} = this.state
+        return (
+          <div>
+            <h2>當前求和: {count}</h2>
+            <button onClick={this.add}>點我 + 1</button>
+            <button onClick={this.death} >卸載組件</button>
+            <button onClick={this.force} >不更改任何狀態中的數據，強制更新一下</button>
+          </div>
+        )
+      }
+    }
+    
+    // 渲染組件
+    ReactDOM.render(<Count count={199}/>, document.getElementById('test'))
+  </script>
+</body>
+
+</html>
