@@ -20,6 +20,8 @@
   <script type="text/javascript" src="../js/babel.min.js"></script>
 
   <script type="text/babel">
+    // let that
+
     // 1. 創建組件
     class Weather extends React.Component {
       
@@ -29,8 +31,13 @@
         super(props)
         // 初始化狀態
         this.state = { isHot: true, wind: '微風' }
+
+        // 保存當前組件實例
+        // that = this
+
         // 解決 changeWeather 中 this 指向問題
-        this.changeWeather = this.changeWeather.bind(this)
+        // 順著原型鍊查找，找到 changeWeather 並將其用 .bind 綁定 this 並掛載到當前實例上
+        // this.changeWeather = this.changeWeather.bind(this)
       }
 
       // render 調用幾次？1 + n 次，1 是初始化的那次，n 為狀態更新的次數

@@ -40,6 +40,15 @@
       render() {
         return (
           <div>
+            {/* 回調形式的 ref */}
+            <input ref={(a) => console.log('@', a)} type="text" />
+
+            {/* 執行 render 後幫你調用了 ref 上的函數，傳入的參數就是取得的節點，並命名為 input1 然後將其掛載到組件實例對象上 */}
+            <input ref={(currentNode) => {this.input1 = currentNode}} type="text" />
+            
+            {/* 箭頭函式只有一個參數可省略小括號，左側只有一句函數體可省略{} */}
+            <input ref={c => this.input1 = c} type="text" />
+
             <input ref={c => this.input1 = c} type="text" placeholder="點擊按鈕提示數據" />&nbsp;
             <button onClick={this.showData}>點我提示左側數據</button>&nbsp;
             <input ref={c => this.input2 = c}  onBlur={this.showData2} type="text" placeholder="失去焦點提示數據" />

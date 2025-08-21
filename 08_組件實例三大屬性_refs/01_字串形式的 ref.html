@@ -22,10 +22,15 @@
   <script type="text/javascript" src="../js/prop-types.js"></script>
 
   <script type="text/babel">
+    /* 參考網站 https://zh-hans.react.dev/learn/referencing-values-with-refs#refs-and-the-dom */
+    /* 官方已經不推薦使用字符串形式的 ref */
+
     // 1. 創建組件
     class Demo extends React.Component {
       // 展示左側輸入框的數據
       showData = () => {
+        // console.log(this.refs.input1) // 這裡的 this.refs.input1 是一個 DOM 元素
+        // debugger
         // 獲取 input 的值
         const { input1 } = this.refs
         alert(input1.value)

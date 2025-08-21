@@ -28,6 +28,15 @@
       1. 通過 onXxx 屬性指定事件處理函數(注意大小寫)
         a. React 使用的是自定義(合成)事件，而不是原生 DOM 事件 ===> 為了更好的兼容性
         b. React 事件是通過事件委託的方式處理的(委託給組件最外層的元素) ===> 為了高效
+          說明：例如事件冒泡，React 會在組件最外層元素上綁定事件處理函數，當事件發生時，React 會自動處理事件的冒泡過程
+          
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          例如要加上點擊事件，不是加在每個 li 上，而是加在 ul 上，當點擊 li 時，React 會自動處理事件冒泡
+
       2. 通過 event.target 得到發生事件的 DOM 元素對象 ===> 不要過度使用 ref
       */
       // 創建 ref 容器
@@ -51,7 +60,7 @@
           <div>
             <input ref={this.myRef} type="text" placeholder="點擊按鈕提示數據" />&nbsp;
             <button onClick={this.showData}>點我提示左側數據</button>&nbsp;
-            {/* onBlur 不用寫 ref 也能實作 */}
+            {/* 失去焦點和 input (發生事件和要操作)是同一個 DOM，已經掛載到組件實例上， onBlur 不用寫 ref 也能實作，不要過度使用 ref */}
             <input onBlur={this.showData2} type="text" placeholder="失去焦點提示數據" />
           </div>
         )

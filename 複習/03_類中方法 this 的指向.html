@@ -12,7 +12,7 @@
         this.name = name
         this.age = age
       }
-      // 類中的方法
+      // 類中的方法已經在局部開啟了嚴格模式
       speak() {
         // speak 方法放在了哪裡？ Person.prototype (類的原型對象上)，供實例使用
         // 通過 Person 實例調用 speak 時，speak 中的 this 就是 Person 的實例對象
@@ -23,7 +23,7 @@
     const p1 = new Person('Jack', 18)
     p1.speak() // 通過實例調用 speak 方法
     const x = p1.speak
-    x() // 通過函數調用，此時 this 是 undefined
+    x() // 通過函數調用，此時 this 是 undefined，因為類中的方法已經在局部開啟了嚴格模式
 
     function demo() {
       'use strict'

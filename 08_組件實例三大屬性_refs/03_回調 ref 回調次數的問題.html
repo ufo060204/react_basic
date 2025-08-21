@@ -49,7 +49,11 @@
         return (
           <div>
             <h2>今天天氣很{isHot ? '炎熱' : '涼爽'}</h2>
+
+            {/* 內聯寫法，組件更新時會被調用兩次，第一次是 null，第二次才是實際的 DOM 節點 */}
             {/*<input ref={(c) => {this.input1 = c; console.log('@', c)}}type="text"/><br /><br />*/}
+
+            {/* 用此寫法將其掛在實例自身上可避免此問題 */}
             <input ref={this.saveInput} type="text" /><br /><br />
             <button onClick={this.showInfo}>點我提示輸入的數據</button>
             <button onClick={this.changeWeather}>點我切換天氣</button>

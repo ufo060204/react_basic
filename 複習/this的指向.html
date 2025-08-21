@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bind</title>
+  <title>this的指向</title>
 </head>
 <body>
   <script type="text/javascript">
-    function demo() {
-      console.log('demo', this)
+    function demo () {
+      // 開啟嚴格模式
+      'use strict';
+
+      console.log(this);
     }
-    demo() // window
-    const x = demo.bind({ a: 1, b: 2 }) // { a: 1, b: 2 }
-    x()
+    demo();
   </script>
 </body>
 </html>
